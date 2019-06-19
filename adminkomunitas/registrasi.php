@@ -157,12 +157,13 @@ $(document).ready(function()
 					<input type="text" name="user_komunitas" placeholder="Username" class="form-control"><br>
 					<input type="password" name="pass_komunitas" placeholder="Password" class="form-control"><br>
 					<input type="text" name="nama_komunitas" placeholder="Nama Komunitas" class="form-control"><br>
-					<select name="jenis_komunitas" class="form-control country">
-						<option value="" disabled selected>Jenis Komunitas</option>
-            			<option value="1" >A</option>
-            			<option value="2" >B</option>
-            			<option value="3" >C</option>
-            		</select>
+					<!-- <select name="jenis_komunitas"> -->
+						<input type="text" list="jenis" class="form-control country" placeholder="Jenis Komunitas" name="jenis_komunitas">
+              <datalist id="jenis">
+          			<option value="Musik" >
+          			<option value="Game" >
+          			<option value="Olahraga" >
+              </datalist>
 					<br>
 					<textarea name="deskripsi_komunitas" placeholder="Deskripsi Komunitas" style="height:180px;" class="form-control"></textarea><br>
 					<div class="form-group" style="text-align:right;">

@@ -31,11 +31,11 @@ if(isset($_POST['kirim'])){
 			if($tipe_file == "image/jpeg" || $tipe_file == "image/png" || $tipe_file == "image/jpg"){ 
 				if($ukuran_file<=20000000){
 					if(move_uploaded_file($tmp_file,$target_file)){
-						$query = mysqli_query($konek,"INSERT INTO komunitas_daftar(komunitas_user, komunitas_pass, komunitas_nama, komunitas_logo, komunitas_logo_size, komunitas_logo_type, komunitas_jenis, komunitas_desk) VALUES('$komunitas_user', '$komunitas_pass', '$komunitas_nama', '$nama_file', '$ukuran_file', '$tipe_file', '$komunitas_jenis', '$komunitas_deskripsi')");
+						$query = mysqli_query($konek,"INSERT INTO komunitas(komunitas_user, komunitas_pass, komunitas_nama, komunitas_logo, komunitas_logo_size, komunitas_logo_type, komunitas_jenis, komunitas_desk, komunitas_status) VALUES('$komunitas_user', '$komunitas_pass', '$komunitas_nama', '$nama_file', '$ukuran_file', '$tipe_file', '$komunitas_jenis', '$komunitas_deskripsi', 'N')");
 						if($query){
 						?><script>
-							window.alert("Postingan anda berhasil di upload");
-							window.location.href='../index.php';
+							window.alert("Komunitas berhasil didaftarkan, silahkan menunggu 2-3 hari untuk hasil validasinya");
+							window.location.href='../../index.php';
 						</script><?php	
 						}
 					}

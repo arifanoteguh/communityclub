@@ -136,7 +136,7 @@
                       <tbody>
                       <?php
                       
-                      $query = mysqli_query($konek,"SELECT * FROM komunitas order by komunitas_id asc");
+                      $query = mysqli_query($konek,"SELECT * FROM komunitas WHERE komunitas_status = 'Y' order by komunitas_id asc");
                       if(!$query){
                         die("Gagal Membaca : ".mysqli_error());
                       }
