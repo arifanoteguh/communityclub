@@ -1,3 +1,6 @@
+<?php
+  include '../koneksi.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -160,9 +163,17 @@ $(document).ready(function()
 					<!-- <select name="jenis_komunitas"> -->
 						<input type="text" list="jenis" class="form-control country" placeholder="Jenis Komunitas" name="jenis_komunitas">
               <datalist id="jenis">
-          			<option value="Musik" >
-          			<option value="Game" >
-          			<option value="Olahraga" >
+                <?php
+                  $query = mysqli_query($konek,"SELECT * FROM jenis_komunitas order by jenis_id asc");
+                  if(!$query){
+                    die("Gagal Membaca : ".mysqli_error());
+                  }
+                  while($row=mysqli_fetch_array($query)){
+                ?>
+                    <option value="<?php echo ucfirst($row['jenis_komunitas']) ?>">
+                <?php
+                  }
+                ?>
               </datalist>
 					<br>
 					<textarea name="deskripsi_komunitas" placeholder="Deskripsi Komunitas" style="height:180px;" class="form-control"></textarea><br>

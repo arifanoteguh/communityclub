@@ -6,8 +6,17 @@ if(isset($_POST['kirim'])){
 	$komunitas_user = $_POST['user_komunitas'];
 	$komunitas_pass = $_POST['pass_komunitas'];
 	$komunitas_nama = $_POST['nama_komunitas'];
-	$komunitas_jenis = $_POST['jenis_komunitas'];
+	$komunitas_jenis = strtolower($_POST['jenis_komunitas']);
 	$komunitas_deskripsi = $_POST['deskripsi_komunitas'];
+
+	//Komunitas baru atau bukan
+	$query = mysqli_num_rows(mysqli_query($konek,"SELECT * FROM jenis_komunitas WHERE jenis_komunitas='$komunitas_jenis' "));
+	if($query == 0){
+		$query = mysqli_query($konek, "INSERT INTO jenis_komunitas(jenis_komunitas) VALUES ('$komunitas_jenis')");
+		if($query){
+			break;
+		}
+	}
 
 	//Upload Foto/Gambar
 	$rand_digit=rand(00000,99999);

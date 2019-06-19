@@ -144,7 +144,7 @@
                       ?>
                           <tr>
                             <td><?php echo $row['komunitas_nama']; ?></td>
-                            <td><?php echo $row['komunitas_jenis']; ?></td>
+                            <td><?php echo ucfirst($row['komunitas_jenis']); ?></td>
                             <td><?php echo $row['komunitas_desk']; ?></td>
                             <td align="center">
                             <form method="post" action="proses_validasi_komunitas.php">
