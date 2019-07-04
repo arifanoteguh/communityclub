@@ -35,6 +35,12 @@ if($query){
 		<?php echo $row['komunitas_desk'] ?>
 			
 	</div><br>
+	<div style="border:1px solid; width: 60%; min-height: 100px;">
+		<h4>Jumlah Anggota</h4>
+		999<br>
+		<a href="kelola_anggota.php"><input type="submit" value="Kelola"></a>
+		<br><br>
+	</div><br>
 	<div style="border:1px solid; width: 60%; min-height: 200px;">
 		<h4>Kegiatan</h4>
 		<?php include 'kegiatan.php'; ?>
