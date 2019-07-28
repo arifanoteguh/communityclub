@@ -11,7 +11,7 @@ if(isset($_POST['hapus'])){
 	if($query){
 	?><script>
 		window.alert("Kegiatan telah dihapus");
-		window.location.href='../profile.php';
+		window.location.href='../kegiatan.php';
 	</script><?php	
 	}
 }

@@ -99,8 +99,8 @@
       Community Club
     </div></a>
     <div class="col-sm-6"></div>
-    <a href="login.php"><div class="col-sm-1">Masuk</div></a>
-    <a href="adminkomunitas/registrasi.php"><div class="col-sm-1">Daftar</div></a>
+    <a data-toggle="modal" data-target="#modalLogin" style="cursor:pointer;"><div class="col-sm-1">Masuk</div></a>
+    <a data-toggle="modal" data-target="#myModal" style="cursor:pointer;"><div class="col-sm-1">Daftar</div></a>
   </div>
 
 <div class="row">
@@ -108,7 +108,6 @@
 	<div class="col-sm-5"><font class="headlight">Sebuah tempat untuk mencari komunitas  yang kamu butuhkan</font></div>
 	<div class="col-sm-2"><button style="margin-top:93%" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">Bergabung Sekarang</button></div>
 </div>
-
 
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
@@ -134,6 +133,31 @@
       </div>
     </div>
   </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalLogin" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Login Sebagai :</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <a href="adminkomunitas/login.php"><button class="btn btn-danger btn-lg">Komunitas</button></a>      
+          </div>
+          <div class="col-sm-6">              
+            <a href="anggota/login.php"><button class="btn btn-danger btn-lg">Anggota</button></a>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

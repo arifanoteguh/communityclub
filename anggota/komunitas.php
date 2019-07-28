@@ -2,20 +2,20 @@
   include '../koneksi.php';
   // include 'core/login.php';
   session_start();
-  if(!isset($_SESSION['login_komunitas'])){ //LOGIN
+  if(!isset($_SESSION['login_anggota'])){ //LOGIN
     ?><script>
-      window.alert("Komunitas Harap Login!");
+      window.alert("Harap Login!");
       window.location.href="login.php";
     </script>
     <?php
   }
 
-$komunitas_id = $_SESSION['komunitas_id'];
+$anggota_id = $_SESSION['anggota_id'];
+$komunitas_id = $_GET['id'];
 
 $query = mysqli_query($konek,"SELECT * FROM komunitas WHERE komunitas_id='$komunitas_id'");
 
-$jml_anggota = mysqli_num_rows(mysqli_query($konek,"SELECT anggota_komunitas.anggota_id FROM anggota_komunitas JOIN komunitas ON anggota_komunitas.komunitas_id=komunitas.komunitas_id WHERE anggota_komunitas.komunitas_id='$komunitas_id' AND anggota_komunitas.status='y'"));
-$pendaftar = mysqli_num_rows(mysqli_query($konek,"SELECT anggota_komunitas.anggota_id FROM anggota_komunitas JOIN komunitas ON anggota_komunitas.komunitas_id=komunitas.komunitas_id WHERE anggota_komunitas.komunitas_id='$komunitas_id' AND anggota_komunitas.status='n'"));
+$jml_anggota = mysqli_num_rows(mysqli_query($konek,"SELECT anggota_komunitas.anggota_id FROM anggota_komunitas JOIN komunitas ON anggota_komunitas.komunitas_id=komunitas.komunitas_id WHERE anggota_komunitas.komunitas_id='$komunitas_id'"));
 
 if($query){
 	$row = mysqli_fetch_array($query);
@@ -141,19 +141,16 @@ if($query){
 
   <div class="row" style="margin-top:10px;">
   	<div class="col-sm-1"></div>
-  	<div class="col-sm-7" style="background-color: #fff; padding-bottom:20px">
+  	<div class="col-sm-7" style="background-color: #fff; padding-bottom:20px; padding-top: 20px;">
   		<div class="row">
   			<div class="col-sm-10"></div>
-  			<div class="col-sm-2" style="padding-top: 20px;">
-  				<a href="edit_profile.php" class="btn btn-sm btn-success">Edit Profile</a>
-  			</div>
   		</div>
   		<div class="row">
   			<div class="col-sm-1"></div>
   			<div class="col-sm-2">
-				<img src="<?php echo "core/upload/logo/".$row['komunitas_logo'] ?>" width="100px">
+				<img src="<?php echo "../adminkomunitas/core/upload/logo/".$row['komunitas_logo'] ?>" width="100px">
   			</div>
-  			<div class="col-sm-4">
+  			<div class="col-sm-8">
 
 			<?php
   				echo "<h4>".ucfirst($row['komunitas_nama'])."</h4>";
@@ -165,40 +162,28 @@ if($query){
   			</div>
   		</div>
   	</div>
-  	<div class="col-sm-3" style="margin-left: 20px; background-color: #fff; padding-bottom: 10px;">
+  	<div class="col-sm-3" style="margin-left: 20px; background-color: #fff">
   		<div class="row">
   			<div class="col-sm-7" style="padding-top:15px;">
   				<h4>Anggota : <?php echo $jml_anggota; ?>
   				<?php
-					$komunitas_id = $_SESSION['komunitas_id'];
-					$query = mysqli_query($konek,"SELECT * FROM anggota_komunitas JOIN anggota ON anggota_komunitas.anggota_id = anggota.anggota_id WHERE anggota_komunitas.komunitas_id='$komunitas_id' AND status='y' AND anggota_komunitas.komunitas_id='$komunitas_id' ORDER BY anggota.anggota_id LIMIT 3");
+					$anggota_id = $_SESSION['anggota_id'];
+					$query = mysqli_query($konek,"SELECT * FROM anggota_komunitas JOIN anggota ON anggota_komunitas.anggota_id = anggota.anggota_id WHERE anggota_komunitas.anggota_id='$anggota_id' AND status='y' AND anggota_komunitas.komunitas_id='komunitas_id' ORDER BY anggota.anggota_id LIMIT 3");
 		        	if(!$query){
 						die("Gagal Membaca : ".mysqli_error());
 					}
 					while($row=mysqli_fetch_array($query)){
   				?>
-	  					<img src="<?php echo"../anggota/core/upload/foto/".$row['anggota_foto'] ?>" class="foto-anggota">
+	  					<img src="<?php echo"core/upload/foto/".$row['anggota_foto'] ?>" class="foto-anggota">
 		  		<?php
 					}
   				?>
   				</h4>
   			</div>
-  			<div class="col-sm-3" style="padding-top: 20px;">
-  				<a href="kelola_anggota.php" class="btn btn-sm btn-success">Kelola Anggota</a>
-  			</div>
   		</div>
-  		<?php
-  		if($pendaftar>0){
-  		?>
-		<div class="row">
-			<div class="col-sm-1"></div>
-			<div class="col-sm-10" style="margin-left: -30px; margin-top: -10px;">
-	  			<span><font size="2px" color="red"><?php echo $pendaftar." pendaftar baru" ?></font></span>
-			</div>
-		</div>
-		<?php
-		}
-		?>
+  		<div class="row">
+
+  		</div>
   	</div>
   </div>
   <div class="row" style="margin-top:10px">
@@ -209,7 +194,7 @@ if($query){
 	  			<h4>Kegiatan Komunitas</h4>
 	  		</div>
   			<div class="col-sm-2" style="margin-left:-30px;">
-  				<a href="kegiatan.php" class="btn btn-sm btn-success">Kelola Kegiatan</a>
+  				<a href="list_kegiatan_komunitas.php?id=<?php echo $komunitas_id; ?>" class="btn btn-sm btn-success">Seluruh Kegiatan</a>
   			</div>
   		</div>
 
@@ -236,13 +221,13 @@ if($query){
 		      	if($i==0){
 			      ?>
 			      <div class="item active">
-			        <center><img src="<?php echo "core/komunitas/kegiatan/".$kegiatan['komunitas_id']."/".$kegiatan['foto_nama'] ?>" style="height: 300px;"></center>
+			        <center><img src="<?php echo "../adminkomunitas/core/komunitas/kegiatan/".$komunitas_id."/".$kegiatan['foto_nama'] ?>" style="height: 300px;"></center>
 			      </div>
 			      <?php
 			    }else{
 			      ?>
 			      <div class="item">
-			        <center><img src="<?php echo "core/komunitas/kegiatan/".$kegiatan['komunitas_id']."/".$kegiatan['foto_nama'] ?>" style="height: 300px;"></center>
+			        <center><img src="<?php echo "../adminkomunitas/core/komunitas/kegiatan/".$komunitas_id."/".$kegiatan['foto_nama'] ?>" style="height: 300px;"></center>
 			      </div>
 			      <?php
 			    }
@@ -263,7 +248,9 @@ if($query){
 		      <span class="sr-only">Next</span>
 		    </a>
 		  </div>
-		<?php } ?>
+		  <?php
+			}
+		  ?>
   	</div>
   </div>
 </div>

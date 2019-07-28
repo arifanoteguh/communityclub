@@ -7,6 +7,7 @@ if(isset($_POST['kirim'])){
 	$komunitas_id = $_POST['komunitas_id'];
 	$kegiatan_id = $_POST['kegiatan_id'];
 	$kegiatan_nama = $_POST['kegiatan'];
+	$kegiatan_tgl = $_POST['tgl'];
 	$kegiatan_desk = $_POST['deskripsi'];
 
 	if(!empty($_FILES['upfoto']['name'])) {
@@ -34,11 +35,11 @@ if(isset($_POST['kirim'])){
 				if($tipe_file == "image/jpeg" || $tipe_file == "image/png" || $tipe_file == "image/jpg"){ 
 					if($ukuran_file<=20000000){
 						if(move_uploaded_file($tmp_file,$target_file)){
-							$query = mysqli_query($konek,"UPDATE kegiatan_komunitas SET kegiatan_nama='$kegiatan_nama', deskripsi='$kegiatan_desk', foto_nama='$nama_file', foto_size='$ukuran_file', foto_tipe='$tipe_file' WHERE kegiatan_id='$kegiatan_id'");
+							$query = mysqli_query($konek,"UPDATE kegiatan_komunitas SET kegiatan_nama='$kegiatan_nama', deskripsi='$kegiatan_desk', foto_nama='$nama_file', foto_size='$ukuran_file', foto_tipe='$tipe_file', kegiatan_tgl='$kegiatan_tgl' WHERE kegiatan_id='$kegiatan_id'");
 							if($query){
 							?><script>
 								window.alert("Kegiatan telah diupdate");
-								window.location.href='../profile.php';
+								window.location.href='../kegiatan.php';
 							</script><?php
 							}
 						}
@@ -55,11 +56,11 @@ if(isset($_POST['kirim'])){
 					</script><?php	
 				}
 			}else{
-				$query = mysqli_query($konek,"UPDATE kegiatan_komunitas SET kegiatan_nama='$kegiatan_nama', deskripsi='$kegiatan_desk' WHERE kegiatan_id='$kegiatan_id'");
+				$query = mysqli_query($konek,"UPDATE kegiatan_komunitas SET kegiatan_nama='$kegiatan_nama', deskripsi='$kegiatan_desk', kegiatan_tgl='$kegiatan_tgl' WHERE kegiatan_id='$kegiatan_id'");
 				if($query){
 				?><script>
 					window.alert("Kegiatan telah diupdate");
-					window.location.href='../profile.php';
+					window.location.href='../kegiatan.php';
 				</script><?php
 				}
 			}

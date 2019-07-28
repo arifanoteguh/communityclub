@@ -84,30 +84,6 @@
         margin-bottom: 30px;
      }
 	</style>
-
-<script type="text/javascript">
-$(document).ready(function()
-{
- $(".country").change(function()
- {
-  var id=$(this).val();
-  var dataString = 'id='+ id;
- 
-  $.ajax
-  ({
-   type: "POST",
-   url: "get_state.php",
-   data: dataString,
-   cache: false,
-   success: function(html)
-   {
-      $(".state").html(html);
-   } 
-   });
-  });
- 
-});
-</script>
 </head>
 <body>
 
@@ -118,8 +94,8 @@ $(document).ready(function()
       Community Club
     </div></a>
     <div class="col-sm-6"></div>
-    <a href="login.php"><div class="col-sm-1">Masuk</div></a>
-    <a href="registrasi.php"><div class="col-sm-1">Daftar</div></a>
+    <a href="" data-toggle="modal" data-target="#modalLogin" style="cursor:pointer;"><div class="col-sm-1">Masuk</div></a>
+    <a href="" data-toggle="modal" data-target="#myModal" style="cursor:pointer;"><div class="col-sm-1">Daftar</div></a>
   </div>
 
 <script type="text/javascript">
@@ -185,6 +161,56 @@ $(document).ready(function()
 		</div>
 		</form>
 	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Daftar Sebagai :</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <a href="../adminkomunitas/registrasi.php"><button class="btn btn-danger btn-lg">Komunitas</button></a>      
+          </div>
+          <div class="col-sm-6">              
+            <a href="registrasi.php"><button class="btn btn-danger btn-lg">Anggota</button></a>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalLogin" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Login Sebagai :</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <a href="login.php"><button class="btn btn-danger btn-lg">Komunitas</button></a>      
+          </div>
+          <div class="col-sm-6">              
+            <a href="../anggota/login.php"><button class="btn btn-danger btn-lg">Anggota</button></a>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 </body>

@@ -3,13 +3,14 @@
   // Ini hapus ya kalo udah editnya
   session_start();
   // 
-	if(!isset($_SESSION['login_komunitas'])){ //LOGIN
+	if(!isset($_SESSION['login_anggota'])){ //LOGIN
 		?><script>
-		  window.alert("Komunitas Harap Login!");
+		  window.alert("Harap Login!");
 		  window.location.href="login.php";
 		</script>
 	<?php
 	}
+
 ?>
 
 <!DOCTYPE html>
@@ -31,18 +32,18 @@
 	      overflow-x: hidden;
 	  	}
 	  	.foto-kegiatan{
-	  		border-radius:50%;
-	  		width: 120px;
-	  		height: 120px;
+	  		min-width: 120px;
+	  		max-width: 1000px;
+	  		min-height: 120px;
+	  		max-height: 300px;
 	  		margin-top:10px;
 	  	}
 	  	.box-kegiatan{
 			width: 173px;
-			height: 200px;
-			margin-left: 25px;
-			margin-right: 25px;
+			height: 230px;
+			background: #EDEDED;
+			margin-left: 40px;
 			border: 1px solid rgba(255, 255, 255, 0);
-			color: #000;
 	  	}
 	  	.box-kegiatan:hover{
 	  		border:1px solid #D52D30;
@@ -97,7 +98,7 @@
 	  	}
 		   
 	     a,a:hover{
-	      color: #fff;
+	      color: #000;
 	     }
 
 	     .head-bar{
@@ -105,19 +106,23 @@
 	        background-color: #D52D30;
 	        padding: 10px;
 	     }
+
+	     .fa-minus:hover,.fa-edit:hover{
+	     	color: blue;
+	     }
 	</style>
 </head>
 <body>
 
   <div class="row head-bar">
     <div class="col-sm-1"></div>
-    <a href="profile.php"><div class="col-sm-2">
+    <a href="profile.php" style="color:white;"><div class="col-sm-2">
       <img src="../assets/logo.png" width="30px" height="32px">
       Community Club
     </div></a>
     <div class="col-sm-6"></div>
-    <a href="profile.php" style="cursor:pointer;"><div class="col-sm-1" style="margin-top:5px;">Profile</div></a>
-    <a href="core/logout.php" style="cursor:pointer;"><div class="col-sm-1" style="margin-top:5px;">Keluar</div></a>
+    <a href="profile.php" style="cursor:pointer;color:white;"><div class="col-sm-1" style="margin-top:5px;">Profile</div></a>
+    <a href="core/logout.php" style="cursor:pointer;color:white;"><div class="col-sm-1" style="margin-top:5px;">Keluar</div></a>
   </div>
 
 <div class="container">
@@ -125,45 +130,42 @@
 		<div class="col-sm-12" style="border:0px solid;padding-top:10px;">
       <div class="row">
         <div class="col-sm-1"></div>
-        <div class="col-sm-3"><h3>Anggota Komunitas</h3></div>
+        <div class="col-sm-3"><h3>Detail Kegiatan</h3></div>
         <div class="col-sm-5"></div>
-        <div class="col-sm-2"><a href="kelola_calon_anggota.php"><button style="margin-top:15px; margin-left: 30px;" class="btn btn-md btn-success"><span class="fa fa-plus"></span>&nbsp;Calon Anggota</button></a></div>
+        <div class="col-sm-2"><a href="kegiatan_komunitas.php"><button style="margin-top:15px; margin-left: 100px;" class="btn btn-md btn-warning">Kembali</button></a></div>
       </div>
     </div>
   </div>
 
+  <?php
+
+  $kegiatan_id = $_GET['id'];
+  $query = mysqli_query($konek,"SELECT * FROM kegiatan_komunitas WHERE kegiatan_id='$kegiatan_id'");
+
+  if($query){
+
+  	$row = mysqli_fetch_array($query);
+
+  ?>
+
   <div class="row" style="margin-top:10px;">
   	<div class="col-sm-1"></div>
   	<div class="col-sm-10" style="background-color: #fff">
-  		<div class="col-sm-12" style="padding: 10px;">
-  			<div class="row" style="margin: 10px;">
-
-					<?php
-						$komunitas_id = $_SESSION['komunitas_id'];
-						$query = mysqli_query($konek,"SELECT * FROM anggota_komunitas JOIN anggota ON anggota_komunitas.anggota_id = anggota.anggota_id WHERE anggota_komunitas.komunitas_id='$komunitas_id' AND status='y' ORDER BY anggota.anggota_id");
-			        	if(!$query){
-							die("Gagal Membaca : ".mysqli_error());
-						}
-						while($row=mysqli_fetch_array($query)){
-					?>
-
-	  			<div class="col-sm-2 box-kegiatan">
-	  				<div class="col-sm-12">
-						<div class="foto-kegiatan" style="background-image: url('<?php echo "../anggota/core/upload/foto/".$row['anggota_foto'] ?>'); background-size: 120px; background-repeat: no-repeat; background-position: center;"></div>
-	  				</div>
-	  				<div class="col-sm-12" style="margin-top:20px;">
-	  					<center><?php echo $row['anggota_nama'] ?></center>
-	  				</div>
-	  			</div>
-
-				<?php
-				}
-				?>
-
-	  		</div>
-  		</div>
+  		<center><h3><?php echo ucfirst($row['kegiatan_nama']) ?></h3>
+  		<img src="<?php echo "../adminkomunitas/core/komunitas/kegiatan/".$row['komunitas_id']."/".$row['foto_nama'] ?>" class="foto-kegiatan"></center>
+  		<hr size="2">
+  		<h4>Tentang Kegiatan</h4>
+  		<div class="col-sm-1"></div>
+  		<div class="col-sm-11">
+	  		<?php echo $row['deskripsi'] ?>
+	  	</div>
   	</div>
   </div>
+
+  <?php
+	}
+  ?>
+
 </div>
 
 </body>

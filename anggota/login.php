@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title> Registrasi Anggota</title>
+	<title> Login </title>
 	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
 	<script src="../bootstrap/js/jquery.min.js"></script>
 	<script src="../bootstrap/js/bootstrap.min.js"></script>
@@ -28,21 +28,6 @@
       position: absolute;
       z-index: -1; 
     }
-	.headlight{
-		position: absolute;
-		width: 557px;
-		height: 68px;
-		margin-top: 30%;
-
-		font-style: normal;
-		font-weight: normal;
-		font-size: 48px;
-		line-height: 56px;
-		display: flex;
-		align-items: center;
-
-		color: #FFFFFF;
-	}
   	.btn-file {
       position: relative;
       overflow: hidden;
@@ -99,30 +84,6 @@
         margin-bottom: 30px;
      }
 	</style>
-
-<script type="text/javascript">
-$(document).ready(function()
-{
- $(".country").change(function()
- {
-  var id=$(this).val();
-  var dataString = 'id='+ id;
- 
-  $.ajax
-  ({
-   type: "POST",
-   url: "get_state.php",
-   data: dataString,
-   cache: false,
-   success: function(html)
-   {
-      $(".state").html(html);
-   } 
-   });
-  });
- 
-});
-</script>
 </head>
 <body>
 
@@ -137,9 +98,28 @@ $(document).ready(function()
     <a href="" data-toggle="modal" data-target="#myModal" style="cursor:pointer;"><div class="col-sm-1">Daftar</div></a>
   </div>
 
-<div class="row">
-	<div class="col-sm-5"></div>
-	<div class="col-sm-5"><font class="headlight">Coming Soon</font></div>
+<div class="container">
+	<div>
+		<form action="core/login.php" method="post" enctype="multipart/form-data">
+		<div class="col-sm-12" style="border:0px solid;padding-top:120px;">
+      <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4"><center><h2><font color="#fff">Login</font></h2></center></div>
+      </div>
+			<div class="row">
+				<div class="col-sm-4">
+				</div>
+				<div class="col-sm-4">
+					<input type="text" name="user" placeholder="Username" class="form-control"><br>
+					<input type="password" name="pass" placeholder="Password" class="form-control"><br>
+					<div class="form-group" style="text-align:right;">
+						<input type="submit" name="masuk" class="btn btn-danger btn-md" value="Masuk">
+					</div>
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
 </div>
 
 <!-- Modal -->
@@ -153,10 +133,10 @@ $(document).ready(function()
       <div class="modal-body">
         <div class="row">
           <div class="col-sm-6">
-            <a href="../adminkomunitas/registrasi.php"><button class="btn btn-danger btn-lg">Komunitas</button></a>      
+            <a href="registrasi.php"><button class="btn btn-danger btn-lg">Komunitas</button></a>      
           </div>
           <div class="col-sm-6">              
-            <a href="registrasi.php"><button class="btn btn-danger btn-lg">Anggota</button></a>
+            <a href="../anggota/registrasi.php"><button class="btn btn-danger btn-lg">Anggota</button></a>
           </div>
         </div>
       </div>
@@ -191,5 +171,6 @@ $(document).ready(function()
     </div>
   </div>
 </div>
+
 </body>
 </html>

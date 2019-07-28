@@ -3,9 +3,9 @@
   // Ini hapus ya kalo udah editnya
   session_start();
   // 
-	if(!isset($_SESSION['login_komunitas'])){ //LOGIN
+	if(!isset($_SESSION['login_anggota'])){ //LOGIN
 		?><script>
-		  window.alert("Komunitas Harap Login!");
+		  window.alert("Harap Login!");
 		  window.location.href="login.php";
 		</script>
 	<?php
@@ -38,10 +38,11 @@
 	  	}
 	  	.box-kegiatan{
 			width: 173px;
-			height: 230px;
-			background: #EDEDED;
-			margin-left: 40px;
+			height: 200px;
+			margin-left: 25px;
+			margin-right: 25px;
 			border: 1px solid rgba(255, 255, 255, 0);
+			color: #000;
 	  	}
 	  	.box-kegiatan:hover{
 	  		border:1px solid #D52D30;
@@ -119,75 +120,54 @@
     <a href="core/logout.php" style="cursor:pointer;"><div class="col-sm-1" style="margin-top:5px;">Keluar</div></a>
   </div>
 
-<script type="text/javascript">
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#prv').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-</script>
-
-
-<?php
-
-if (isset($_POST['kirim'])) {
-	$kegiatan_id = $_POST['kegiatan_id'];
-	$komunitas_id = $_SESSION['komunitas_id'];
-
-	$query = mysqli_query($konek,"SELECT * FROM kegiatan_komunitas WHERE komunitas_id='$komunitas_id' AND kegiatan_id='$kegiatan_id'");
-	if($query){
-		$row = mysqli_fetch_array($query);
-?>
-
 <div class="container">
-	<div>
-		<div class="col-sm-12" style="border:0px solid;padding:20px;">
+	<div class="row">
+		<div class="col-sm-12" style="border:0px solid;padding-top:10px;">
       <div class="row">
         <div class="col-sm-1"></div>
-        <div class="col-sm-9"><h2>Edit Kegiatan</h2></div>
-        <div class="col-sm-2"><a href="kegiatan.php"><button style="margin-top:15px; margin-left: -10px;" class="btn btn-md btn-warning">Kembali</button></a></div>
+        <div class="col-sm-3"><h3>List Komunitas</h3></div>
+        <div class="col-sm-5"></div>
       </div>
+    </div>
+  </div>
 
-		<form action="core/edit_kegiatan.php" method="post" enctype="multipart/form-data">
-			<div class="row">
-				<div class="col-sm-1">
-				</div>
-				<div class="col-sm-4">
-					<div class="panel panel-primary">
-						<div class="panel-heading" style="background-color:#e32929; border-color:#e32929">Foto Preview</div>
-						<div class="panel-body"><img id="prv" src="../assets/pict_default.png" class="img-responsive" style="width:100%" alt="Image"></div>
-					</div>
-					<span class="btn btn-default btn-file">
-						Pilih Foto <input type="file" name="upfoto" onchange="readURL(this);" accept="image/*">
-					</span>
-				</div>
-				<div class="col-sm-6">
-					<input type="hidden" name="komunitas_id" value="<?php echo $_SESSION['komunitas_id'] ?>">
-					<input type="hidden" name="kegiatan_id" value="<?php echo $kegiatan_id ?>">
-					<input type="text" name="kegiatan" placeholder="Nama Kegiatan" class="form-control" value="<?php echo $row['kegiatan_nama'] ?>"><br>
-          			<input type="text" name="tgl" placeholder="Tanggal Kegiatan" onfocus="(this.type='date')" class="form-control" value="<?php echo $row['kegiatan_tgl'] ?>"><br>
-					<textarea name="deskripsi" placeholder="Deskripsi Kegiatan" style="height:180px;" class="form-control"><?php echo $row['deskripsi']; ?></textarea><br>
-					<div class="form-group" style="text-align:right;">
-						<input type="submit" name="kirim" class="btn btn-danger btn-md" value="Konfirmasi">
-					</div>
-				</div>
-			</div>
-		</div>
-		</form>
-	</div>
+  <div class="row" style="margin-top:10px;">
+  	<div class="col-sm-1"></div>
+  	<div class="col-sm-10" style="background-color: #fff">
+  		<div class="col-sm-12" style="padding: 10px;">
+  			<div class="row" style="margin: 10px;">
+
+					<?php
+						$anggota_id = $_SESSION['anggota_id'];
+
+
+  						$query = mysqli_query($konek, "SELECT * FROM komunitas JOIN anggota_komunitas ON komunitas.komunitas_id=anggota_komunitas.komunitas_id WHERE anggota_komunitas.anggota_id='$anggota_id'");
+			        	if(!$query){
+							die("Gagal Membaca");
+						}
+						while($row=mysqli_fetch_array($query)){
+					?>
+
+				<a href="komunitas.php?id=<?php echo $row['komunitas_id']; ?>">
+	  			<div class="col-sm-2 box-kegiatan">
+	  				<div class="col-sm-12">
+						<div class="foto-kegiatan" style="background-image: url('<?php echo "../adminkomunitas/core/upload/logo/".$row['komunitas_logo'] ?>'); background-size: 110px; background-repeat: no-repeat; background-position: center;"></div>
+	  				</div>
+	  				<div class="col-sm-12" style="margin-top:20px;">
+	  					<center><b><?php echo $row['komunitas_nama'] ?></b></center>
+	  				</div>
+	  			</div>
+	  			</a>
+
+				<?php
+				}
+				?>
+
+	  		</div>
+  		</div>
+  	</div>
+  </div>
 </div>
 
-
-<?php
-	}
-}
-
-?>
 </body>
 </html>

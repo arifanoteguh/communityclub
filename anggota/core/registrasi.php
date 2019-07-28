@@ -44,7 +44,7 @@ if(isset($_POST['kirim'])){
 						if($query){
 						?><script>
 							window.alert("Selamat kamu telah berhasil menjadi Anggota, Silahkan tunggu update selanjutnya :)");
-							window.location.href='../cs.php';
+							window.location.href='../login.php';
 						</script><?php	
 						}
 					}

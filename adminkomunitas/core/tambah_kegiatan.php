@@ -6,6 +6,7 @@ if(isset($_POST['kirim'])){
 
 	$komunitas_id = $_POST['komunitas_id'];
 	$kegiatan_nama = $_POST['kegiatan'];
+	$kegiatan_tgl = $_POST['tgl'];
 	$kegiatan_desk = $_POST['deskripsi'];
 
 	//Upload Foto/Gambar
@@ -21,7 +22,7 @@ if(isset($_POST['kirim'])){
 	$tmp_file = $_FILES['upfoto']['tmp_name'];
 	$tgl = date('Y-m-d');
 
-	if(empty($komunitas_id) || empty($kegiatan_nama) || empty($kegiatan_desk) || empty($nama_file)){
+	if(empty($komunitas_id) || empty($kegiatan_nama) || empty($kegiatan_tgl) || empty($kegiatan_desk) || empty($nama_file)){
 		?><script>
 			window.alert("Semua Data Harus Diisi");
 			window.history.back();
@@ -30,11 +31,11 @@ if(isset($_POST['kirim'])){
 			if($tipe_file == "image/jpeg" || $tipe_file == "image/png" || $tipe_file == "image/jpg"){ 
 				if($ukuran_file<=20000000){
 					if(move_uploaded_file($tmp_file,$target_file)){
-						$query = mysqli_query($konek,"INSERT INTO kegiatan_komunitas(komunitas_id, kegiatan_nama, deskripsi, foto_nama, foto_size, foto_tipe) VALUES('$komunitas_id', '$kegiatan_nama', '$kegiatan_desk', '$nama_file', '$ukuran_file', '$tipe_file')");
+						$query = mysqli_query($konek,"INSERT INTO kegiatan_komunitas(komunitas_id, kegiatan_nama, deskripsi, foto_nama, foto_size, foto_tipe, kegiatan_tgl) VALUES('$komunitas_id', '$kegiatan_nama', '$kegiatan_desk', '$nama_file', '$ukuran_file', '$tipe_file', '$kegiatan_tgl')");
 						if($query){
 						?><script>
 							window.alert("Kegiatan telah ditambah");
-							window.location.href='../profile.php';
+							window.location.href='../kegiatan.php';
 						</script><?php	
 						}
 					}

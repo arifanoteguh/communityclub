@@ -5,7 +5,10 @@ include '../../koneksi.php';
 if(isset($_POST['kirim'])){
 
 	$komunitas_id = $_POST['komunitas_id'];
-	$komunitas_desk = $_POST['deskripsi'];
+	$komunitas_kontak = $_POST['kontak_komunitas'];
+	$komunitas_jenis = $_POST['jenis_komunitas'];
+	$komunitas_alamat = $_POST['alamat_komunitas'];
+	$komunitas_desk = $_POST['deskripsi_komunitas'];
 
 	if(!empty($_FILES['upfoto']['name'])) {
 		//Upload Foto/Gambar
@@ -24,7 +27,7 @@ if(isset($_POST['kirim'])){
 
 	if(empty($komunitas_desk)){
 		?><script>
-			window.alert("Deskripsi Tidak Bisa Kkosong");
+			window.alert("Deskripsi Tidak Bisa Kosong");
 			window.history.back();
 		</script><?php
 	}else{
@@ -32,7 +35,7 @@ if(isset($_POST['kirim'])){
 				if($tipe_file == "image/jpeg" || $tipe_file == "image/png" || $tipe_file == "image/jpg"){ 
 					if($ukuran_file<=20000000){
 						if(move_uploaded_file($tmp_file,$target_file)){
-							$query = mysqli_query($konek,"UPDATE komunitas SET komunitas_desk='$komunitas_desk', komunitas_logo='$nama_file', komunitas_logo_size='$ukuran_file', komunitas_logo_type='$tipe_file' WHERE komunitas_id='$komunitas_id'");
+							$query = mysqli_query($konek,"UPDATE komunitas SET komunitas_desk='$komunitas_desk', komunitas_logo='$nama_file', komunitas_logo_size='$ukuran_file', komunitas_logo_type='$tipe_file', komunitas_jenis='$komunitas_jenis', komunitas_kontak='$komunitas_kontak', komunitas_alamat='$komunitas_alamat' WHERE komunitas_id='$komunitas_id'");
 							if($query){
 							?><script>
 								window.alert("Profile telah diupdate");
@@ -53,7 +56,7 @@ if(isset($_POST['kirim'])){
 					</script><?php	
 				}
 			}else{
-				$query = mysqli_query($konek,"UPDATE komunitas SET komunitas_desk='$komunitas_desk' WHERE komunitas_id='$komunitas_id'");
+				$query = mysqli_query($konek,"UPDATE komunitas SET komunitas_desk='$komunitas_desk', komunitas_jenis='$komunitas_jenis', komunitas_kontak='$komunitas_kontak', komunitas_alamat='$komunitas_alamat' WHERE komunitas_id='$komunitas_id'");
 				if($query){
 				?><script>
 					window.alert("Profile telah diupdate");
