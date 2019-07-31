@@ -3,6 +3,8 @@ include '../../koneksi.php';
 
 if(isset($_POST['kirim'])){
 
+	$anggota_id = $_POST['anggota_id'];
+
 	$anggota_pass = $_POST['pass_anggota'];
 	$anggota_nama = $_POST['nama_anggota'];
 	$anggota_ttl = $_POST['ttl_anggota'];
@@ -31,11 +33,11 @@ if(isset($_POST['kirim'])){
 				if($tipe_file == "image/jpeg" || $tipe_file == "image/png" || $tipe_file == "image/jpg"){ 
 					if($ukuran_file<=20000000){
 						if(move_uploaded_file($tmp_file,$target_file)){
-							$query = mysqli_query($konek,"UPDATE anggota SET anggota_pass='$anggota_pass', anggota_nama='$anggota_nama', anggota_foto='$nama_file', anggota_foto_size='$ukuran_file', anggota_foto_tipe='$tipe_file', anggota_ttl='$anggota_ttl', anggota_bio='$anggota_bio'");
+							$query = mysqli_query($konek,"UPDATE anggota SET anggota_pass='$anggota_pass', anggota_nama='$anggota_nama', anggota_foto='$nama_file', anggota_foto_size='$ukuran_file', anggota_foto_tipe='$tipe_file', anggota_ttl='$anggota_ttl', anggota_bio='$anggota_bio' WHERE anggota_id='$anggota_id'");
 							if($query){
 							?><script>
 								window.alert("Profile telah diperbaharui :)");
-								window.location.href='profile.php';
+								window.location.href='../profile.php';
 							</script><?php	
 							}
 						}
@@ -58,7 +60,7 @@ if(isset($_POST['kirim'])){
 		if($query){
 		?><script>
 			window.alert("Profile telah diperbaharui :)");
-			window.location.href='profile.php';
+			window.location.href='../profile.php';
 		</script><?php	
 		}
 	}

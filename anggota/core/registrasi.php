@@ -43,7 +43,7 @@ if(isset($_POST['kirim'])){
 						$query = mysqli_query($konek,"INSERT INTO anggota(anggota_user, anggota_pass, anggota_nama, anggota_foto, anggota_foto_size, anggota_foto_tipe, anggota_ttl, anggota_bio) VALUES('$anggota_user', '$anggota_pass', '$anggota_nama', '$nama_file', '$ukuran_file', '$tipe_file', '$anggota_ttl', '$anggota_bio')");
 						if($query){
 						?><script>
-							window.alert("Selamat kamu telah berhasil menjadi Anggota, Silahkan tunggu update selanjutnya :)");
+							window.alert("Selamat kamu telah berhasil menjadi Anggota, Silahkan login :)");
 							window.location.href='../login.php';
 						</script><?php	
 						}

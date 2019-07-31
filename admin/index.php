@@ -1,3 +1,17 @@
+<?php
+  include '../koneksi.php';
+  // Ini hapus ya kalo udah editnya
+  session_start();
+  // 
+  if(!isset($_SESSION['login_admin'])){ //LOGIN
+    ?><script>
+      window.alert("Admin Harap Login!");
+      window.location.href="login.php";
+    </script>
+  <?php
+  }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -36,7 +50,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><img src="../assets/logo.png" width="30px" height="32px"></i> <span>Community Club</span></a>
+              <a href="index.php" class="site_title"><img src="../assets/logo.png" width="30px" height="32px"></i> <span>Community Club</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -87,7 +101,7 @@
                     <img src="../assets/logo.png" width="30px" height="32px" alt="">Community Club
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="proses_logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
               </ul>
@@ -102,11 +116,17 @@
           <div class="row tile_count">
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Komunitas</span>
-              <div class="count">2500</div>
+              <div class="count"><?php
+                $jml_kom = mysqli_num_rows(mysqli_query($konek, "SELECT komunitas_id FROM komunitas"));
+                echo $jml_kom
+              ?></div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Anggota</span>
-              <div class="count">n</div>
+              <div class="count"><?php
+                $jml_anggota = mysqli_num_rows(mysqli_query($konek, "SELECT anggota_id FROM anggota"));
+                echo $jml_anggota
+              ?></div>
             </div>
           </div>
           <!-- /top tiles -->

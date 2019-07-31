@@ -186,6 +186,7 @@ $(document).ready(function()
 					</span>
 				</div>
 				<div class="col-sm-6">
+          <input type="hidden" name="anggota_id" value="<?php echo $anggota_id ?>">
 					<input type="text" disabled="" name="user_anggota" placeholder="Username" class="form-control" value="<?php echo $row['anggota_user'] ?>"><br>
 					<input type="password" name="pass_anggota" placeholder="Password" class="form-control" value="<?php echo $row['anggota_pass'] ?>"><br>
 					<input type="text" name="nama_anggota" placeholder="Nama" class="form-control" value="<?php echo $row['anggota_nama'] ?>"><br>

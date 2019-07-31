@@ -200,7 +200,7 @@ if($query){
   		</div>
 	  	<?php } ?>
   	</div>
-  	<div class="col-sm-3" style="margin-left: 20px; background-color: #fff; margin-top:-130px; padding-bottom: 10px; padding-top: 15px">
+  	<div class="col-sm-3" style="margin-left: 20px; background-color: #fff; padding-bottom: 10px; padding-top: 15px">
 		<div class="col-sm-9">
   			<h4>Komunitas Terdaftar</h4>
   		</div>

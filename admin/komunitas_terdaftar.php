@@ -48,7 +48,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><img src="../assets/logo.png" width="30px" height="32px"></i> <span>Community Club</span></a>
+              <a href="index.php" class="site_title"><img src="../assets/logo.png" width="30px" height="32px"></i> <span>Community Club</span></a>
             </div>
 
             <div class="clearfix"></div>

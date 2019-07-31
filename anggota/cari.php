@@ -202,15 +202,15 @@
 		if(!empty($_POST['komunitas_cari']) && !empty($_POST['jenis_komunitas'])){
 	  		$dicari = $_POST['komunitas_cari'];
 	  		$dicari2 = $_POST['jenis_komunitas'];
-	  		$query = mysqli_query($konek, "SELECT *, komunitas.komunitas_id AS kom_id FROM komunitas LEFT JOIN anggota_komunitas ON komunitas.komunitas_id=anggota_komunitas.komunitas_id WHERE (komunitas_nama LIKE '%$dicari%' OR komunitas_jenis LIKE '%$dicari%' OR komunitas_desk LIKE '%$dicari%' OR komunitas_jenis LIKE '%$dicari2%') AND (anggota_id='$anggota_id' OR anggota_id IS NULL) limit $posisi,$batas");	
+	  		$query = mysqli_query($konek, "SELECT *, komunitas.komunitas_id AS kom_id FROM komunitas LEFT JOIN anggota_komunitas ON komunitas.komunitas_id=anggota_komunitas.komunitas_id WHERE (komunitas_nama LIKE '%$dicari%' OR komunitas_jenis LIKE '%$dicari%' OR komunitas_desk LIKE '%$dicari%' OR komunitas_jenis LIKE '%$dicari2%') AND komunitas_status='y' GROUP BY kom_id limit $posisi,$batas");	
 	  	}elseif(empty($_POST['komunitas_cari']) && empty($_POST['jenis_komunitas'])){
-	  		$query = mysqli_query($konek, "SELECT *, komunitas.komunitas_id AS kom_id FROM komunitas LEFT JOIN anggota_komunitas ON komunitas.komunitas_id=anggota_komunitas.komunitas_id WHERE anggota_id='$anggota_id' OR anggota_id IS NULL limit $posisi,$batas");	
+	  		$query = mysqli_query($konek, "SELECT *, komunitas.komunitas_id AS kom_id FROM komunitas LEFT JOIN anggota_komunitas ON komunitas.komunitas_id=anggota_komunitas.komunitas_id WHERE komunitas_status='y' GROUP BY kom_id limit $posisi,$batas");	
 	  	}elseif(empty($_POST['jenis_komunitas']) && !empty($_POST['komunitas_cari'])){
 	  		$dicari = $_POST['komunitas_cari'];
-	  		$query = mysqli_query($konek, "SELECT *, komunitas.komunitas_id AS kom_id FROM komunitas LEFT JOIN anggota_komunitas ON komunitas.komunitas_id=anggota_komunitas.komunitas_id WHERE (komunitas_nama LIKE '%$dicari%' OR komunitas_jenis LIKE '%$dicari%' OR komunitas_desk LIKE '%$dicari%') AND (anggota_id='$anggota_id' OR anggota_id IS NULL) limit $posisi,$batas");
+	  		$query = mysqli_query($konek, "SELECT *, komunitas.komunitas_id AS kom_id FROM komunitas LEFT JOIN anggota_komunitas ON komunitas.komunitas_id=anggota_komunitas.komunitas_id WHERE (komunitas_nama LIKE '%$dicari%' OR komunitas_jenis LIKE '%$dicari%' OR komunitas_desk LIKE '%$dicari%') AND komunitas_status='y' GROUP BY kom_id limit $posisi,$batas");
 	  	}elseif(!empty($_POST['jenis_komunitas']) && empty($_POST['komunitas_cari'])){
 	  		$dicari2 = $_POST['jenis_komunitas'];
-	  		$query = mysqli_query($konek, "SELECT *, komunitas.komunitas_id AS kom_id FROM komunitas LEFT JOIN anggota_komunitas ON komunitas.komunitas_id=anggota_komunitas.komunitas_id WHERE komunitas_jenis LIKE '%$dicari2%' AND (anggota_id='$anggota_id' OR anggota_id IS NULL) limit $posisi,$batas");	
+	  		$query = mysqli_query($konek, "SELECT *, komunitas.komunitas_id AS kom_id FROM komunitas LEFT JOIN anggota_komunitas ON komunitas.komunitas_id=anggota_komunitas.komunitas_id WHERE komunitas_jenis LIKE '%$dicari2%' AND komunitas_status='y' GROUP BY kom_id limit $posisi,$batas");	
 	  	}
   		
 		if(!$query){
@@ -257,9 +257,9 @@
 
 		if(!empty($_POST['komunitas_cari'])){
 	  		$dicari = $_POST['komunitas_cari'];
-	  		$paging2 = mysqli_query($konek, "SELECT *, komunitas.komunitas_id AS kom_id FROM komunitas LEFT JOIN anggota_komunitas ON komunitas.komunitas_id=anggota_komunitas.komunitas_id WHERE (komunitas_nama LIKE '%$dicari%' OR komunitas_jenis LIKE '%$dicari%' OR komunitas_desk LIKE '%$dicari%') AND (anggota_id='$anggota_id' OR anggota_id IS NULL)");	
+	  		$paging2 = mysqli_query($konek, "SELECT *, komunitas.komunitas_id AS kom_id FROM komunitas LEFT JOIN anggota_komunitas ON komunitas.komunitas_id=anggota_komunitas.komunitas_id WHERE (komunitas_nama LIKE '%$dicari%' OR komunitas_jenis LIKE '%$dicari%' OR komunitas_desk LIKE '%$dicari%') AND (anggota_id='$anggota_id' OR anggota_id IS NULL) AND status='y'");	
 	  	}else{
-	  		$paging2 = mysqli_query($konek, "SELECT *, komunitas.komunitas_id AS kom_id FROM komunitas LEFT JOIN anggota_komunitas ON komunitas.komunitas_id=anggota_komunitas.komunitas_id WHERE anggota_id='$anggota_id' OR anggota_id IS NULL");	
+	  		$paging2 = mysqli_query($konek, "SELECT *, komunitas.komunitas_id AS kom_id FROM komunitas LEFT JOIN anggota_komunitas ON komunitas.komunitas_id=anggota_komunitas.komunitas_id WHERE anggota_id='$anggota_id' OR anggota_id IS NULL AND status='y'");	
 	  	}
 
 		  $jmldata = mysqli_num_rows($paging2);
